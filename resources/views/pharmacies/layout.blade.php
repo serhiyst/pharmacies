@@ -35,7 +35,7 @@
     <link href="https://getbootstrap.com/docs/4.3/examples/dashboard/dashboard.css" rel="stylesheet">
   </head>
   <body>
-    <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
+    <nav class="navbar navbar-expand navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
       <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">Elfa</a> 
       <form class="form-inline w-100"  action="/pharmacies/search" method="POST">
         @csrf
@@ -46,8 +46,22 @@
       <ul class="navbar-nav px-3">
         <li class="nav-item text-nowrap">
 
+{{-- ... --}}
 
-          <li class="nav-item dropdown">
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+                        <!-- Authentication Links -->
+                        @guest
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                            </li>
+                            @if (Route::has('register'))
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                </li>
+                            @endif
+                        @else
+                            <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }} <span class="caret"></span>
                                 </a>
@@ -64,6 +78,9 @@
                                     </form>
                                 </div>
                             </li>
+                        @endguest
+                    </ul>
+                </div>
 
           {{-- <a class="nav-link" href="#">Sign out</a> --}}
         </li>
@@ -87,7 +104,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="/pharmacies/anc">
+                <a class="nav-link" href="/pharmacies/custom-search">
                   <span data-feather="search"></span>
                   Расширеный поиск
                 </a>
@@ -102,12 +119,6 @@
                 <a class="nav-link" href="#">
                   <span data-feather="bar-chart-2"></span>
                   Reports
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">
-                  <span data-feather="layers"></span>
-                  Integrations
                 </a>
               </li>
             </ul>

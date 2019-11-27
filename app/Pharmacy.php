@@ -13,4 +13,5 @@ class Pharmacy extends Model
 		return $this->belongsTo('App\User', 'sales_rep', 'name');
 	}
 
+    
 }

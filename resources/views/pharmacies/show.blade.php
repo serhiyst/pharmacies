@@ -37,7 +37,9 @@
 	  <dd class="col-sm-9">{{ $pharmacy->email }}</dd>
 
 	  <div><a href="/pharmacies/{{ $pharmacy->id }}/edit" class="btn btn-primary">Редактировать</a>
-	  <button type="submit" form="delete" class="btn btn-danger" onclick="return confirm('Вы действительно хотите удалить эту торговую точку?')">Удалить</button></div>
+	  <button type="submit" form="delete" class="btn btn-danger" onclick="return confirm('Вы действительно хотите удалить эту торговую точку?')">Удалить</button>
+	  <a class="btn btn-secondary" href="{{ url('/pharmacies') }}">Назад</a>
+	  </div>
 	 
 	  <form id="delete" method="POST" action="/pharmacies/{{ $pharmacy->id }}">
 	    @method('DELETE') 

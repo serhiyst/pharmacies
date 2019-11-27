@@ -20,5 +20,7 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::post('/pharmacies/search', 'PharmacyController@search')->name('search');
+Route::get('/pharmacies/custom-search', 'PharmacyController@customSearchForm');
+Route::post('/pharmacies/custom-search', 'PharmacyController@customSearch');
 Route::get('/pharmacies/selection', 'PharmacyController@selection');
 Route::resource('pharmacies', 'PharmacyController');
