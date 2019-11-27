@@ -84,6 +84,7 @@ class PharmacyController extends Controller
      */
     public function show(Pharmacy $pharmacy)
     {
+        $this->authorize('update', $pharmacy);
         return view('pharmacies.show', compact('pharmacy'));
     }
 
@@ -95,6 +96,7 @@ class PharmacyController extends Controller
      */
     public function edit(Pharmacy $pharmacy)
     {
+        $this->authorize('update', $pharmacy);
         return view('pharmacies.edit', compact('pharmacy'));
     }
 
@@ -107,9 +109,9 @@ class PharmacyController extends Controller
      */
     public function update(Request $request, Pharmacy $pharmacy)
     {
+        $this->authorize('update', $pharmacy);
         $pharmacy->update($request->except('inform'));
         $changes = $pharmacy->getChanges();
-        // dd($changes);
         if ($request->input('inform') == 'checked') {
             Mail::to('admin@example.com')->send(new PharmacyUpdated($pharmacy, $changes));
         }
@@ -124,6 +126,7 @@ class PharmacyController extends Controller
      */
     public function destroy(Pharmacy $pharmacy)
     {
+        $this->authorize('update', $pharmacy);
         Mail::to('admin@example.com')->send(new PharmacyDeleted($pharmacy));
         $pharmacy = $pharmacy->delete();
         return redirect('/pharmacies');

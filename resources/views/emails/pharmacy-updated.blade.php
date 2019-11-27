@@ -45,7 +45,7 @@
     </li>
   @endforeach
 </ul>
-@component('mail::button', ['url' => ''])
+@component('mail::button', ['url' => '/pharmacy/'.$pharmacy->id])
 Подробности
 @endcomponent
 
