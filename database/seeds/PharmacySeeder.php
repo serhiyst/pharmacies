@@ -11,6 +11,6 @@ class PharmacySeeder extends Seeder
      */
     public function run()
     {
-        factory('App\Pharmacy', 200)->create();
+        factory('App\Pharmacy', 400)->create();
     }
 }

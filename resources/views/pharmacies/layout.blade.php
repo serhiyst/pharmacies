@@ -92,7 +92,7 @@
               <li class="nav-item">
                 <a class="nav-link" href="/pharmacies/custom-search">
                   <span data-feather="search"></span>
-                  Расширеный поиск
+                  Расширенный поиск
                 </a>
               </li>
 
