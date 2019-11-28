@@ -20,9 +20,9 @@
 - Далее php artisan key:generate
 - Далее php artisan migrate --seed
 
-Данные для входа:
-admin@example.com - password
-user1@example.com - password
-user2@example.com - password
-user3@example.com - password
-user4@example.com - password
+Данные для входа:         
+admin@example.com - password    
+user1@example.com - password      
+user2@example.com - password      
+user3@example.com - password        
+user4@example.com - password       
