@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Mail\PharmacyUpdated;
+use App\Http\Requests\ValidatePharmacy;
 use App\Mail\PharmacyCreated;
 use App\Mail\PharmacyDeleted;
+use App\Mail\PharmacyUpdated;
 use App\Pharmacy;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
@@ -69,11 +70,11 @@ class PharmacyController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ValidatePharmacy $request)
     {
-        $pharmacy = Pharmacy::create($request->all() + ['sales_rep' => auth()->user()->name]);
+        $pharmacy = Pharmacy::create($request->all());
         Mail::to('admin@example.com')->queue(new PharmacyCreated($pharmacy));
-        return redirect('/pharmacies')  ;
+        return redirect('/pharmacies');
     }
 
     /**
@@ -107,9 +108,8 @@ class PharmacyController extends Controller
      * @param  \App\Pharmacy  $pharmacy
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Pharmacy $pharmacy)
+    public function update(ValidatePharmacy $request, Pharmacy $pharmacy)
     {
-        $this->authorize('update', $pharmacy);
         $pharmacy->update($request->except('inform'));
         $changes = $pharmacy->getChanges();
         if ($request->input('inform') == 'checked') {
@@ -165,30 +165,43 @@ class PharmacyController extends Controller
         $vitamin = $this->vitamin;
         $tas = $this->tas;
         $pharmastor = $this->pharmastor;
+        $vip_nets = array_merge($anc, $aptekar, $vitamin, $tas, $pharmastor);
         $pharmacy = Pharmacy::when(auth()->user()->name == 'Овчаренко Анатолий', function ($query) use ($pharmacy){
-                                                    return $pharmacy;})
+                        return $pharmacy;})
                     ->when(auth()->user()->name != 'Овчаренко Анатолий', function ($query) use ($pharmacy){
-                                                    return auth()->user()->pharmacies();})
-                    ->when(!empty($request->input('legal_entity')), function ($query) use ($request){
-                                                    return $query->where('legal_entity', 'like', "%{$request->input('legal_entity')}%");})
+                        return auth()->user()->pharmacies();})
+                    ->when(!empty($request->input('legal_entity')), function ($query) use ($request, $anc, $aptekar, $vitamin, $vip_nets) {
+                        if ($request->input('legal_entity') == 'Сеть АНЦ') {
+                            return $query->whereIn('legal_entity', $anc);
+                        } elseif ($request->input('legal_entity') == 'Сеть Аптекарь') {
+                            return $query->whereIn('legal_entity', $aptekar);
+                        } elseif ($request->input('legal_entity') == 'Сеть Витамин') {
+                            return $query->whereIn('legal_entity', $vitamin);
+                        } elseif ($request->input('legal_entity') == 'Вип') {
+                            return $query->whereIn('legal_entity', $vip_nets);
+                        } elseif ($request->input('legal_entity') == 'Розница') {
+                            return $query->whereNotIn('legal_entity', $vip_nets);
+                        } else {
+                            return $query->where('legal_entity', 'like', "%{$request->input('legal_entity')}%");}
+                        })
                     ->when(!empty($request->input('address')), function ($query) use ($request){
-                                                    return $query->where('address', 'like', "%{$request->input('address')}%");})
+                        return $query->where('address', 'like', "%{$request->input('address')}%");})
                     ->when(!empty($request->input('city')), function ($query) use ($request){
-                                                    return $query->where('city', 'like', "%{$request->input('city')}%");})
+                        return $query->where('city', 'like', "%{$request->input('city')}%");})
                     ->when(!empty($request->input('district')), function ($query) use ($request){
-                                                    return $query->where('district', 'like', "%{$request->input('district')}%");})
+                        return $query->where('district', 'like', "%{$request->input('district')}%");})
                     ->when(!empty($request->input('sales_rep')), function ($query) use ($request){
-                                                    return $query->where('sales_rep', 'like', "%{$request->input('sales_rep')}%");})
+                        return $query->where('sales_rep', 'like', "%{$request->input('sales_rep')}%");})
                     ->when(!empty($request->input('category')), function ($query) use ($request){
-                                                    return $query->where('category', 'like', "%{$request->input('category')}%");})
+                        return $query->where('category', 'like', "%{$request->input('category')}%");})
                     ->when(!empty($request->input('day_of_order')), function ($query) use ($request){
-                                                    return $query->where('day_of_order', 'like', "%{$request->input('day_of_order')}%");})
+                        return $query->where('day_of_order', 'like', "%{$request->input('day_of_order')}%");})
                     ->when(!empty($request->input('day_of_delivery')), function ($query) use ($request){
-                                                    return $query->where('day_of_delivery', 'like', "%{$request->input('day_of_delivery')}%");})
+                        return $query->where('day_of_delivery', 'like', "%{$request->input('day_of_delivery')}%");})
                     ->when(!empty($request->input('equipment')), function ($query) use ($request){
-                                                return $query->where('equipment', 'like', "%{$request->input('equipment')}%");})
+                        return $query->where('equipment', 'like', "%{$request->input('equipment')}%");})
                     ->when(!empty($request->input('sales_rep')), function ($query) use ($request){
-                                                return $query->where('sales_rep', 'like', "%{$request->input('sales_rep')}%");})->get()->sortBy('legal_entity');
+                        return $query->where('sales_rep', 'like', "%{$request->input('sales_rep')}%");})->get()->sortBy('legal_entity');
         return view('pharmacies.index', compact('pharmacy', 'counter', 'anc', 'aptekar', 'vitamin', 'tas', 'pharmastor', 'search_data'));
     }
 
@@ -231,13 +244,13 @@ class PharmacyController extends Controller
             if ($selection_data == 'retail'){
                 $pharmacy = Pharmacy::whereNotIn('legal_entity', $query_data)->get()->sortBy('legal_entity', SORT_LOCALE_STRING); 
             } else {
-            $pharmacy = Pharmacy::wherein('legal_entity',$query_data)->get()->sortBy('legal_entity', SORT_LOCALE_STRING);    
+            $pharmacy = Pharmacy::whereIn('legal_entity',$query_data)->get()->sortBy('legal_entity', SORT_LOCALE_STRING);    
             } 
         } else {
             if ($selection_data == 'retail'){
                 $pharmacy = auth()->user()->pharmacies()->whereNotIn('legal_entity',$query_data)->get()->sortBy('legal_entity', SORT_LOCALE_STRING); 
             } else {
-            $pharmacy = auth()->user()->pharmacies()->wherein('legal_entity',$query_data)->get()->sortBy('legal_entity', SORT_LOCALE_STRING);
+            $pharmacy = auth()->user()->pharmacies()->whereIn('legal_entity',$query_data)->get()->sortBy('legal_entity', SORT_LOCALE_STRING);
             }
         }   
         return view('pharmacies.index', compact('pharmacy', 'counter', 'anc', 'aptekar', 'vitamin', 'tas', 'pharmastor', 'vip_nets', 'query_data'));

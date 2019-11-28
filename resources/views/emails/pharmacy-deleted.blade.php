@@ -1,12 +1,13 @@
 @component('mail::message')
 
 # {{ $pharmacy->sales_rep }} удалил аптеку:
-<p>{{ $pharmacy->legal_entity }}, {{ $pharmacy->address }},</p>
-<p>{{ $pharmacy->city }}, {{ $pharmacy->district }} район</p> 
+
+>{{ $pharmacy->legal_entity }}, {{ $pharmacy->address }},        
+>{{ $pharmacy->city }}, {{ $pharmacy->district }} район
 
 
-@component('mail::button', ['url' => '/pharmacy/'.$pharmacy->id])
-Подробности
+@component('mail::button', ['url' => '/pharmacy/'])
+К списку аптек
 @endcomponent
 
 <br>

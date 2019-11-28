@@ -1,6 +1,6 @@
 @component('mail::message')
 # В данные аптеки {{$pharmacy->legal_entity}}, {{$pharmacy->address}} внесены изменения
-# Список изменений:
+## Список изменений:
 <ul style="list-style-type: none;">
   @foreach($changes as $key => $change)
     <li>

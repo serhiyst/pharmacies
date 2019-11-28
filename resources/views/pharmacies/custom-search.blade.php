@@ -7,7 +7,7 @@
     @csrf
     <div class="form-group">
       <label for="legal_entity">Юр. лицо</label>
-      <input type="text" class="form-control" name="legal_entity">
+      <input type="text" class="form-control" name="legal_entity" placeholder="Для получения всех аптек сети исользуйте ключевые слова Сеть АНЦ, Сеть Аптекарь, Сеть Витамин, ТАС, Фармастор, Вип, Розница">
     </div>
 
     <div class="form-row">

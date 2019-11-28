@@ -3,19 +3,14 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
-    <meta name="generator" content="Jekyll v3.8.5">
     <title>База аптек</title>
     <link rel="canonical" href="https://getbootstrap.com/docs/4.3/examples/dashboard/">
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> 
-
     <style>
       .table-tr-hover:hover {
         background: #E6E6FA;  
       }  
-
       .bd-placeholder-img {
         font-size: 1.125rem;
         text-anchor: middle;
@@ -24,7 +19,6 @@
         -ms-user-select: none;
         user-select: none;
       }
-
       @media (min-width: 768px) {
         .bd-placeholder-img-lg {
           font-size: 3.5rem;
@@ -36,54 +30,46 @@
   </head>
   <body>
     <nav class="navbar navbar-expand navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
-      <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">Elfa</a> 
+      <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="/pharmacies">Elfa</a> 
       <form class="form-inline w-100"  action="/pharmacies/search" method="POST">
         @csrf
-        <input class="form-control form-control-dark " name="search" type="text" placeholder="Search" aria-label="Search">
-        <button class="form-control form-control-dark " type="confirm"></button> 
+        <input class="form-control form-control-dark" name="search" type="text" placeholder="Search" aria-label="Search">
+        <button class="form-control form-control-dark" type="confirm"></button> 
       </form>
 
       <ul class="navbar-nav px-3">
         <li class="nav-item text-nowrap">
-
-{{-- ... --}}
-
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
-
-                        <!-- Authentication Links -->
-                        @guest
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                            </li>
-                            @if (Route::has('register'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                                </li>
-                            @endif
-                        @else
-                            <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }} <span class="caret"></span>
-                                </a>
-
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
-                                    </a>
-
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                        @csrf
-                                    </form>
-                                </div>
-                            </li>
-                        @endguest
-                    </ul>
+            <!-- Authentication Links -->
+            @guest
+              <li class="nav-item">
+                <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+              </li>
+              @if (Route::has('register'))
+                <li class="nav-item">
+                  <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                </li>
+              @endif
+            @else
+              <li class="nav-item dropdown">
+                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                  {{ Auth::user()->name }} <span class="caret"></span>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="{{ route('logout') }}"
+                    onclick="event.preventDefault();
+                    document.getElementById('logout-form').submit();">
+                    {{ __('Logout') }}
+                  </a>
+                  <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                    @csrf
+                  </form>
                 </div>
-
-          {{-- <a class="nav-link" href="#">Sign out</a> --}}
+              </li>
+            @endguest
+          </div>
         </li>
+      </ul>
     </nav>
 
     <div class="container-fluid">
@@ -109,25 +95,9 @@
                   Расширеный поиск
                 </a>
               </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">
-                  <span data-feather="users"></span>
-                  Customers
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">
-                  <span data-feather="bar-chart-2"></span>
-                  Reports
-                </a>
-              </li>
-            </ul>
 
             <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
               <span>Быстрая навигация</span>
-              {{-- <a class="d-flex align-items-center text-muted" href="#">
-                <span data-feather="plus-circle"></span>
-              </a> --}}
             </h6>
             <ul class="nav flex-column mb-2">
               </li>
@@ -160,7 +130,6 @@
                   <span data-feather="chevron-right"></span>
                   ТАС
                 </a>
-              </li>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="/pharmacies/selection?net=pharmastor">

@@ -6,10 +6,7 @@ use App\Pharmacy;
 use Faker\Generator as Faker;
 
 
-
-$factory->define(Pharmacy::class, function (Faker $faker) {
-	 
-
+$factory->define(Pharmacy::class, function (Faker $faker) {	 
     $days = ['понедельник',
     		'вторник',
     		'среда',
@@ -37,11 +34,13 @@ $factory->define(Pharmacy::class, function (Faker $faker) {
     				'Вітамін-1 ТОВ',
                     'Вітамінка ТОВ',
                     'Вітамін-Центр ТОВ', 
+                    'Денді-Фарм ТОВ', 
                     'СМАРТ-ФАРМАЦІЯ ТОВ',
     				'ТАС - Фарма ТОВ',
     				'Фармастор м.Київ',
     				'Лекфарм',
-    				'Лекхим',
+    				'Лекхім',
+                    'Ласкава-Фарм ТОВ',
     				'Столичний медичний альянс',
     				'Ексімед',
     				'Дорадо Фарм',
@@ -53,21 +52,21 @@ $factory->define(Pharmacy::class, function (Faker $faker) {
 				'Таранец Юрий',
 				'Анисимов Сергей'];
 				
-    	return [
-     		'legal_entity' => $legal_entity[array_rand($legal_entity)],
-            'address' => $faker->streetAddress,
-            'city' => 'Киев',
-            'district' => $district[array_rand($district)],
+    return [
+     	'legal_entity' => $legal_entity[array_rand($legal_entity)],
+        'address' => $faker->streetAddress,
+        'city' => 'Киев',
+        'district' => $district[array_rand($district)],
 
-            'sales_rep' => $sales_rep[array_rand($sales_rep)],
-            'category' => $category[array_rand($category)],
+        'sales_rep' => $sales_rep[array_rand($sales_rep)],
+        'category' => $category[array_rand($category)],
            
-            'day_of_order' => $days[array_rand($days)],
-            'day_of_delivery' => $days[array_rand($days)],
-            'equipment' =>$equipment[array_rand($equipment)],
+        'day_of_order' => $days[array_rand($days)],
+        'day_of_delivery' => $days[array_rand($days)],
+        'equipment' =>$equipment[array_rand($equipment)],
 
-            'pharmacy_manager' => $faker->name($gender = 'female'),
-            'phone_number' => $faker->phoneNumber(),
-            'email' => $faker->unique()->safeEmail,
+        'pharmacy_manager' => $faker->name($gender = 'female'),
+        'phone_number' => $faker->phoneNumber(),
+        'email' => $faker->unique()->safeEmail,
     ];
 });

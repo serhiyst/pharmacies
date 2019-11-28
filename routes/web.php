@@ -12,12 +12,10 @@
 */
 
 Route::get('/', function () {
-    return view('layout');
+    return view('index');
 });
 
 Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
 
 Route::post('/pharmacies/search', 'PharmacyController@search')->name('search');
 Route::get('/pharmacies/custom-search', 'PharmacyController@customSearchForm');
