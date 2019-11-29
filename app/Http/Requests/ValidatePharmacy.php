@@ -35,7 +35,7 @@ class ValidatePharmacy extends FormRequest
             'day_of_order' => ['required', 'min:5', 'max:11'],
             'day_of_delivery' => ['required', 'min:5', 'max:11'],
             'equipment' => ['nullable', 'max:255'],
-            'pharmacy_manager' => ['nullable', 'alpha', 'max:255'],
+            'pharmacy_manager' => ['nullable', 'max:255'],
             'phone_number' => ['nullable', 'numeric'],
             'email' => ['nullable', 'email:rfc,dns']
         ];
