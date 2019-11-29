@@ -113,7 +113,7 @@ class PharmacyController extends Controller
         $pharmacy->update($request->except('inform'));
         $changes = $pharmacy->getChanges();
         if ($request->input('inform') == 'checked') {
-            Mail::to('admin@example.com')->send(new PharmacyUpdated($pharmacy, $changes));
+            Mail::to('admin@example.com')->queue(new PharmacyUpdated($pharmacy, $changes));
         }
         return redirect('/pharmacies');
     }
