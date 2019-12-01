@@ -17,8 +17,12 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::post('/pharmacies/search', 'PharmacyController@search')->name('search');
-Route::get('/pharmacies/custom-search', 'PharmacyController@customSearchForm');
-Route::post('/pharmacies/custom-search', 'PharmacyController@customSearch');
-Route::get('/pharmacies/selection', 'PharmacyController@selection');
+Route::post('/pharmacies/search', 'SearchController@search')->name('search');
+Route::get('/pharmacies/custom-search', 'SearchController@customSearchForm');
+Route::post('/pharmacies/custom-search', 'SearchController@customSearch');
+
+Route::get('/pharmacies/export', 'ExportController@export');
+
+Route::get('/pharmacies/selection', 'QuickNavigationController@quickNavigation');
+
 Route::resource('pharmacies', 'PharmacyController');

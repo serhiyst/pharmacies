@@ -95,6 +95,12 @@
                   Расширенный поиск
                 </a>
               </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/pharmacies/export">
+                  <span data-feather="file"></span>
+                  Экспорт в Excel
+                </a>
+              </li>
 
             <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
               <span>Быстрая навигация</span>

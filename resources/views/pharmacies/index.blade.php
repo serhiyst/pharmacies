@@ -23,11 +23,11 @@
         <tr class="table-tr-hover" onclick="location.href = '/pharmacies/{{ $data->id }}';">
           <td>{{ ++$counter }}</td>
           <td>
-            @if (in_array($data->legal_entity, $anc)) <img src="/images/anc.png">  
-            @elseif (in_array($data->legal_entity, $aptekar)) <img src="/images/aptekar.jpg">  
-            @elseif (in_array($data->legal_entity, $vitamin)) <img src="/images/vitamin.png">  
-            @elseif (in_array($data->legal_entity, $tas)) <img src="/images/tas.jpg">  
-            @elseif (in_array($data->legal_entity, $pharmastor)) <img src="/images/pharmastor.jpg">
+            @if (in_array($data->legal_entity, $pharmacyNets['anc'])) <img src="/images/anc.png">  
+            @elseif (in_array($data->legal_entity, $pharmacyNets['aptekar'])) <img src="/images/aptekar.jpg">  
+            @elseif (in_array($data->legal_entity, $pharmacyNets['vitamin'])) <img src="/images/vitamin.png">  
+            @elseif (in_array($data->legal_entity, $pharmacyNets['tas'])) <img src="/images/tas.jpg">  
+            @elseif (in_array($data->legal_entity, $pharmacyNets['pharmastor'])) <img src="/images/pharmastor.jpg">
             @else <img src="/images/retail.jpg">  
             @endif 
           </td>
