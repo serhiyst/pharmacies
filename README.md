@@ -20,6 +20,7 @@
 - Далее composer install
 - Далее php artisan key:generate
 - Далее php artisan migrate --seed
+- Далее php artisan serve
 
 Данные для входа:         
 admin@example.com - password    
